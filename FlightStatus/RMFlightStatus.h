@@ -21,8 +21,12 @@
 @property (strong, nonatomic) NSString *arrivalCity;
 @property (strong, nonatomic) NSString *arrivalPort;
 @property (strong, nonatomic) NSString *arrivalGate;
-@property (strong, nonatomic) NSDate *localDepartDate;
-@property (strong, nonatomic) NSDate *localArrivalDate;
+@property (strong, nonatomic) NSDate *localScheduledDepartDate;
+@property (strong, nonatomic) NSDate *localScheduledArrivalDate;
+@property (strong, nonatomic) NSDate *localActualDepartDate;
+@property (strong, nonatomic) NSDate *localEstimatedArrivalDate;
+@property (strong, nonatomic) NSNumber *flightDuration;
+@property (strong, nonatomic) NSNumber *flightScheduledDuration;
 @property (strong, nonatomic) NSString *flightStatus;
 @property (assign, nonatomic) CLLocationCoordinate2D currentCoordinates;
 

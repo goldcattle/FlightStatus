@@ -22,13 +22,34 @@
             }
             NSArray *appendixArray = [theDictionary objectForKey:@"appendix"];
             NSArray *airlinesArray = [appendixArray valueForKey:@"airlines"];
-            
-            NSArray *airportResourcesArray = [[flightStatArray valueForKey:@"airportResources"]objectAtIndex:0];
-            NSDictionary *airlineDict = [airlinesArray objectAtIndex:0];
-            NSArray *airportsArray = [appendixArray valueForKey:@"airports"];
-            NSDictionary *departureDict = [airportsArray objectAtIndex:0];
-            NSDictionary *arrivalDict = [airportsArray objectAtIndex:1];
 
+            self.flightCarrier = [[flightStatArray valueForKey:@"carrierFsCode"] lastObject];
+            NSDictionary *airlineDict;
+            for (NSDictionary *temp in airlinesArray) {
+                if ([self.flightCarrier isEqualToString:[temp objectForKey:@"fs"]]) {
+                    airlineDict = temp;
+                }
+            }
+            
+            
+            NSArray *airportResourcesArray = [[flightStatArray valueForKey:@"airportResources"] lastObject];
+            NSArray *airportsArray = [appendixArray valueForKey:@"airports"];
+            
+            self.departurePort = [[flightStatArray valueForKey:@"departureAirportFsCode"] lastObject];
+            self.arrivalPort = [[flightStatArray valueForKey:@"arrivalAirportFsCode"] lastObject];
+            
+            NSDictionary *departureDict;
+            NSDictionary *arrivalDict;
+            
+            if ([self.arrivalPort isEqualToString:[[airportsArray lastObject] objectForKey:@"faa"]]) {
+                arrivalDict = [airportsArray lastObject];
+                departureDict = [airportsArray objectAtIndex:[airportsArray count]-2];
+            }
+            else {
+                arrivalDict = [airportsArray objectAtIndex:1];
+                departureDict = [airportsArray objectAtIndex:0];
+            }
+            
             NSString *departureString = [NSString stringWithFormat:@"%@, %@, %@",
                                          [departureDict objectForKey:@"city"],
                                          [departureDict objectForKey:@"stateCode"],
@@ -47,20 +68,29 @@
             
             self.flightId = [[flightStatArray valueForKey:@"flightId"] lastObject]; //Per instructions
             self.flightNumber = [[flightStatArray valueForKey:@"flightNumber"] lastObject];
-            self.flightCarrier = [[flightStatArray valueForKey:@"carrierFsCode"] lastObject];
-            self.departurePort = [[flightStatArray valueForKey:@"departureAirportFsCode"] lastObject];
-            self.arrivalPort = [[flightStatArray valueForKey:@"arrivalAirportFsCode"] lastObject];
             self.departureGate = [NSString stringWithFormat:@"Gate %@ (Terminal %@)", departureGate, departureTerminal];
             self.arrivalGate = [NSString stringWithFormat:@"Gate %@ (Terminal %@)", arrivalGate, arrivalTerminal];
             self.flightCarrierName = [airlineDict objectForKey:@"name"];
+            
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
             
             NSDate *formattedArrivalDate = [df dateFromString:[[[flightStatArray valueForKey:@"arrivalDate"] valueForKey:@"dateLocal"] lastObject]];
             NSDate *formattedDepartureDate = [df dateFromString:[[[flightStatArray valueForKey:@"departureDate"] valueForKey:@"dateLocal"] lastObject]];
-            self.localDepartDate = formattedDepartureDate;
-            self.localArrivalDate = formattedArrivalDate;
+            if (![[[[[flightStatArray valueForKey:@"operationalTimes"] valueForKey:@"estimatedGateArrival"] valueForKey:@"dateLocal"] lastObject] isKindOfClass:[NSNull class]]) {
+                NSDate *formattedEArrivalDate = [df dateFromString:[[[[flightStatArray valueForKey:@"operationalTimes"] valueForKey:@"estimatedGateArrival"] valueForKey:@"dateLocal"] lastObject]];
+                self.localEstimatedArrivalDate = formattedEArrivalDate;
+            }
             
+            if (![[[[[flightStatArray valueForKey:@"operationalTimes"] valueForKey:@"actualRunwayDeparture"] valueForKey:@"dateLocal"] lastObject] isKindOfClass:[NSNull class]]) {
+                NSDate *formattedADepartureDate = [df dateFromString:[[[[flightStatArray valueForKey:@"operationalTimes"] valueForKey:@"actualRunwayDeparture"] valueForKey:@"dateLocal"] lastObject]];
+                self.localActualDepartDate = formattedADepartureDate;
+            }
+        
+            self.localScheduledDepartDate = formattedDepartureDate;
+            self.localScheduledArrivalDate = formattedArrivalDate;
+            self.flightDuration = [[[flightStatArray valueForKey:@"flightDurations"] valueForKey:@"airMinutes"] lastObject];
+            self.flightScheduledDuration = [[[flightStatArray valueForKey:@"flightDurations"] valueForKey:@"scheduledBlockMinutes"] lastObject];
             NSString *status = [[flightStatArray valueForKey:@"status"] lastObject];
             
             if ([status  isEqual: @"S"]) {
