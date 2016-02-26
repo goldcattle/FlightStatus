@@ -1,8 +1,8 @@
 //
 //  RMAPIDataController.m
-//  Stocx
+//  FlightStatus
 //
-//  Created by Rick Miron on 1/16/16.
+//  Created by Rick Miron on 2/23/16.
 //  Copyright © 2016 Rick Miron. All rights reserved.
 //
 
@@ -99,8 +99,8 @@ typedef void(^APIResponseHandler)(NSMutableDictionary *responseDictionary, NSErr
          {
              NSError *error;
              NSMutableDictionary *returnedDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-             NSLog(@"%@", [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error] class]);
-             NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+             //NSLog(@"%@", [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error] class]);
+             //NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
              
              if (error != nil)
              {

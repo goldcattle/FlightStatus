@@ -39,7 +39,6 @@
     
     NSString *modifiedString =  [[self.flightTF.text componentsSeparatedByCharactersInSet:
                                   [[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
-    //NSCharacterSet *alphaSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
     NSCharacterSet *numberSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
     NSString *flightNumber = [modifiedString stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
     NSString *airline = [modifiedString stringByTrimmingCharactersInSet:numberSet];
@@ -65,7 +64,7 @@
             else {
                 NSLog(@"Unable to retrieve flight status.");
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
-                                                                message:@"Unable to retrieve flight information."
+                                                                message:@"Unable to retrieve flight details."
                                                                delegate:nil
                                                       cancelButtonTitle:@"Ok"
                                                       otherButtonTitles:nil];
@@ -98,7 +97,7 @@
     else {
         NSLog(@"Unable to retrieve tracking details.");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
-                                                        message:@"Unable to retrieve flight information."
+                                                        message:@"Unable to retrieve flight location information."
                                                        delegate:self
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
@@ -221,7 +220,6 @@
                          [self.view layoutIfNeeded];
                      }
                      completion:^(BOOL finished){
-                         NSLog(@"Done!");
                          self.middleView.hidden = NO;
                          [self animateMiddleView];
                          [UIView animateWithDuration:0.5
