@@ -18,7 +18,7 @@
 		C218DBEB1C7CE9CF009D44B6 /* RMHTTPController.m in Sources */ = {isa = PBXBuildFile; fileRef = C218DBE81C7CE9CF009D44B6 /* RMHTTPController.m */; };
 		C218DBEC1C7CE9CF009D44B6 /* RMAPIDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = C218DBEA1C7CE9CF009D44B6 /* RMAPIDataController.m */; };
 		C218DBF21C7CEB22009D44B6 /* RMFlightStatsAPIGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = C218DBF11C7CEB22009D44B6 /* RMFlightStatsAPIGateway.m */; };
-		C218DBF61C7D149C009D44B6 /* RMFlightStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C218DBF51C7D149C009D44B6 /* RMFlightStatus.m */; };
+		F71755B91C80002A00371E10 /* RMFlightStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F71755B81C80002A00371E10 /* RMFlightStatus.m */; };
 		F72282CD1C7D6FD600D560E8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72282CC1C7D6FD600D560E8 /* MapKit.framework */; };
 		F72282CF1C7D77BC00D560E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72282CE1C7D77BC00D560E8 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -63,8 +63,8 @@
 		C218DBEA1C7CE9CF009D44B6 /* RMAPIDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAPIDataController.m; sourceTree = "<group>"; };
 		C218DBF01C7CEB22009D44B6 /* RMFlightStatsAPIGateway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFlightStatsAPIGateway.h; sourceTree = "<group>"; };
 		C218DBF11C7CEB22009D44B6 /* RMFlightStatsAPIGateway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMFlightStatsAPIGateway.m; sourceTree = "<group>"; };
-		C218DBF41C7D149C009D44B6 /* RMFlightStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFlightStatus.h; sourceTree = "<group>"; };
-		C218DBF51C7D149C009D44B6 /* RMFlightStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMFlightStatus.m; sourceTree = "<group>"; };
+		F71755B71C80002A00371E10 /* RMFlightStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFlightStatus.h; sourceTree = "<group>"; };
+		F71755B81C80002A00371E10 /* RMFlightStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMFlightStatus.m; sourceTree = "<group>"; };
 		F72282CC1C7D6FD600D560E8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F72282CE1C7D77BC00D560E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -178,8 +178,8 @@
 		C218DBF31C7D1452009D44B6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C218DBF41C7D149C009D44B6 /* RMFlightStatus.h */,
-				C218DBF51C7D149C009D44B6 /* RMFlightStatus.m */,
+				F71755B71C80002A00371E10 /* RMFlightStatus.h */,
+				F71755B81C80002A00371E10 /* RMFlightStatus.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -315,7 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C218DBF61C7D149C009D44B6 /* RMFlightStatus.m in Sources */,
+				F71755B91C80002A00371E10 /* RMFlightStatus.m in Sources */,
 				C218DBEB1C7CE9CF009D44B6 /* RMHTTPController.m in Sources */,
 				C218DBBB1C7CE392009D44B6 /* ViewController.m in Sources */,
 				C218DBB81C7CE392009D44B6 /* AppDelegate.m in Sources */,

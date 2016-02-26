@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mGF-5u-20h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mGF-5u-20h">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -29,17 +29,23 @@
                                                 <variation key="heightClass=regular" constant="150"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                         <color key="textColor" red="0.17598942027060149" green="0.49956658750159944" blue="0.98795752762430944" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check the current status of your flight." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho2-FV-vOt">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho2-FV-vOt">
                                         <rect key="frame" x="28" y="41" width="314" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="D4F-4d-wCU"/>
-                                            <constraint firstAttribute="width" constant="314" id="t3c-tn-mFC"/>
+                                            <constraint firstAttribute="height" constant="21" id="D4F-4d-wCU">
+                                                <variation key="heightClass=regular" constant="50"/>
+                                            </constraint>
+                                            <constraint firstAttribute="width" constant="314" id="t3c-tn-mFC">
+                                                <variation key="heightClass=regular" constant="316"/>
+                                            </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <string key="text">Check the current status of your flight and reserve your rental car at time of arrival.
+</string>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
                                         <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -49,8 +55,11 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="222" id="Uy7-FY-y8h"/>
                                             <constraint firstAttribute="width" constant="147" id="jdO-dL-7rf"/>
-                                            <constraint firstAttribute="height" constant="45" id="xYn-A5-ggf"/>
+                                            <constraint firstAttribute="height" constant="45" id="xYn-A5-ggf">
+                                                <variation key="heightClass=regular" constant="49"/>
+                                            </constraint>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Check Flight Status">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -63,7 +72,7 @@
                                             <action selector="checkStatusButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIY-Fq-OXF"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Flight Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kfD-lV-O9w">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Flight Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kfD-lV-O9w">
                                         <rect key="frame" x="97" y="76" width="139" height="30"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
@@ -72,7 +81,7 @@
                                                 <variation key="heightClass=regular" constant="35"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ex. For American Airlines flight 100 use AA 100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzd-vD-9wc">
@@ -83,7 +92,7 @@
                                                 <variation key="heightClass=regular" constant="15"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -110,7 +119,9 @@
                                     <constraint firstItem="ho2-FV-vOt" firstAttribute="centerX" secondItem="2aa-pQ-SCR" secondAttribute="centerX" id="Gbv-Pe-jLo"/>
                                     <constraint firstItem="ho2-FV-vOt" firstAttribute="leading" secondItem="2aa-pQ-SCR" secondAttribute="leading" constant="28" id="HT8-on-RVD"/>
                                     <constraint firstItem="kfD-lV-O9w" firstAttribute="centerX" secondItem="2aa-pQ-SCR" secondAttribute="centerX" id="J2U-vv-cz3"/>
-                                    <constraint firstItem="5DL-Nk-vYq" firstAttribute="top" secondItem="kfD-lV-O9w" secondAttribute="bottom" constant="21" id="Msx-BO-8Ax"/>
+                                    <constraint firstItem="5DL-Nk-vYq" firstAttribute="top" secondItem="kfD-lV-O9w" secondAttribute="bottom" constant="21" id="Msx-BO-8Ax">
+                                        <variation key="heightClass=regular" constant="14"/>
+                                    </constraint>
                                     <constraint firstItem="ho2-FV-vOt" firstAttribute="top" secondItem="mR5-NA-1zH" secondAttribute="bottom" constant="3" id="R4O-MD-0M1">
                                         <variation key="heightClass=regular" constant="0.0"/>
                                     </constraint>
@@ -122,23 +133,25 @@
                                     <constraint firstItem="5DL-Nk-vYq" firstAttribute="centerX" secondItem="2aa-pQ-SCR" secondAttribute="centerX" id="ehW-KX-j5P"/>
                                     <constraint firstItem="kfD-lV-O9w" firstAttribute="top" secondItem="ho2-FV-vOt" secondAttribute="bottom" constant="14" id="gcb-Gu-n6e"/>
                                     <constraint firstItem="kfD-lV-O9w" firstAttribute="top" secondItem="hzd-vD-9wc" secondAttribute="bottom" constant="12" id="qaD-qX-Ucn">
-                                        <variation key="heightClass=regular" constant="7"/>
+                                        <variation key="heightClass=regular" constant="10"/>
                                     </constraint>
                                     <constraint firstItem="mR5-NA-1zH" firstAttribute="top" secondItem="2aa-pQ-SCR" secondAttribute="top" constant="20" id="tZ2-Mi-JCA">
                                         <variation key="heightClass=regular" constant="14"/>
                                     </constraint>
-                                    <constraint firstAttribute="height" constant="185" id="uUg-81-lfQ"/>
+                                    <constraint firstAttribute="height" constant="185" id="uUg-81-lfQ">
+                                        <variation key="heightClass=regular" constant="220"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="hzd-vD-9wc"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="9ga-Mq-tYt"/>
-                                        <exclude reference="Gbv-Pe-jLo"/>
                                         <exclude reference="9Pf-tF-IAx"/>
                                         <exclude reference="Tro-ha-390"/>
                                         <exclude reference="a1Z-QN-jMj"/>
+                                        <exclude reference="9ga-Mq-tYt"/>
+                                        <exclude reference="Gbv-Pe-jLo"/>
                                         <exclude reference="FwK-wO-4YH"/>
                                         <exclude reference="J2U-vv-cz3"/>
                                         <exclude reference="qaD-qX-Ucn"/>
@@ -149,13 +162,13 @@
                                         <include reference="hzd-vD-9wc"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="9Pf-tF-IAx"/>
+                                        <include reference="Tro-ha-390"/>
+                                        <include reference="a1Z-QN-jMj"/>
                                         <include reference="9ga-Mq-tYt"/>
                                         <exclude reference="eRj-7u-wWC"/>
                                         <include reference="Gbv-Pe-jLo"/>
                                         <exclude reference="HT8-on-RVD"/>
-                                        <exclude reference="9Pf-tF-IAx"/>
-                                        <include reference="Tro-ha-390"/>
-                                        <include reference="a1Z-QN-jMj"/>
                                         <exclude reference="FwK-wO-4YH"/>
                                         <include reference="J2U-vv-cz3"/>
                                         <exclude reference="gcb-Gu-n6e"/>
@@ -172,8 +185,8 @@
                                             <constraint firstAttribute="width" constant="117" id="1TJ-OM-fVu"/>
                                             <constraint firstAttribute="height" constant="21" id="DCD-O7-AUb"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                        <color key="textColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIA-Eb-kpC">
@@ -184,8 +197,8 @@
                                                 <variation key="heightClass=regular" constant="155"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
+                                        <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdo-pC-qG3">
@@ -195,8 +208,8 @@
                                             <constraint firstAttribute="width" constant="156" id="YX2-Ed-Res"/>
                                             <constraint firstAttribute="height" constant="21" id="bUB-YD-Llc"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                        <color key="textColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -213,8 +226,8 @@
                                             </constraint>
                                             <constraint firstAttribute="width" constant="156" id="dwh-dj-Lrd"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
+                                        <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -228,8 +241,8 @@
                                             <constraint firstAttribute="width" constant="106" id="3yc-ur-h8K"/>
                                             <constraint firstAttribute="height" constant="21" id="LiX-aS-d4m"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                        <color key="textColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNX-Ba-6OC">
@@ -241,8 +254,8 @@
                                                 <variation key="heightClass=regular" constant="155"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
+                                        <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -258,8 +271,8 @@
                                                 <variation key="heightClass=regular" constant="155"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
+                                        <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0IY-ed-vR2">
@@ -269,8 +282,8 @@
                                             <constraint firstAttribute="width" constant="156" id="ZhQ-P9-GtC"/>
                                             <constraint firstAttribute="height" constant="21" id="cS6-Fa-CBx"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
+                                        <color key="textColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -286,7 +299,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5A-Ph-QEY" userLabel="Status View">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05G-l5-Lfu">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05G-l5-Lfu">
                                                 <rect key="frame" x="211" y="70" width="170" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="UFt-AK-wIS">
@@ -308,7 +321,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Geg-mn-Rbd"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
+                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="default">
@@ -326,7 +339,9 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="szU-WK-Gg9" secondAttribute="trailing" constant="2" id="H6h-oe-pgI"/>
-                                            <constraint firstAttribute="width" constant="184" id="N0p-7l-wUn"/>
+                                            <constraint firstAttribute="width" constant="184" id="N0p-7l-wUn">
+                                                <variation key="heightClass=regular" constant="195"/>
+                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="05G-l5-Lfu" secondAttribute="trailing" constant="2" id="OJf-5h-L0N"/>
                                             <constraint firstItem="05G-l5-Lfu" firstAttribute="leading" secondItem="h5A-Ph-QEY" secondAttribute="leading" constant="2" id="WKz-lk-Ffg"/>
                                             <constraint firstItem="05G-l5-Lfu" firstAttribute="centerX" secondItem="h5A-Ph-QEY" secondAttribute="centerX" id="XPd-LH-7bE"/>
@@ -347,13 +362,13 @@
                                             <mask key="constraints">
                                                 <exclude reference="N0p-7l-wUn"/>
                                                 <exclude reference="Z7p-Jf-dbj"/>
+                                                <exclude reference="H6h-oe-pgI"/>
+                                                <exclude reference="eD5-PU-RpA"/>
+                                                <exclude reference="eVw-1A-GDT"/>
                                                 <exclude reference="OJf-5h-L0N"/>
                                                 <exclude reference="WKz-lk-Ffg"/>
                                                 <exclude reference="XPd-LH-7bE"/>
                                                 <exclude reference="syT-h9-434"/>
-                                                <exclude reference="H6h-oe-pgI"/>
-                                                <exclude reference="eD5-PU-RpA"/>
-                                                <exclude reference="eVw-1A-GDT"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular">
@@ -364,13 +379,13 @@
                                             <mask key="constraints">
                                                 <include reference="N0p-7l-wUn"/>
                                                 <include reference="Z7p-Jf-dbj"/>
+                                                <include reference="H6h-oe-pgI"/>
+                                                <include reference="eD5-PU-RpA"/>
+                                                <include reference="eVw-1A-GDT"/>
                                                 <include reference="OJf-5h-L0N"/>
                                                 <include reference="WKz-lk-Ffg"/>
                                                 <exclude reference="XPd-LH-7bE"/>
                                                 <include reference="syT-h9-434"/>
-                                                <include reference="H6h-oe-pgI"/>
-                                                <include reference="eD5-PU-RpA"/>
-                                                <include reference="eVw-1A-GDT"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -423,12 +438,14 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="HOS-5g-vRr"/>
+                                        <exclude reference="9Xk-Vb-utP"/>
+                                        <exclude reference="QkV-nX-rJA"/>
+                                        <exclude reference="8tw-hR-HQT"/>
+                                        <exclude reference="QWn-GY-y0n"/>
                                         <exclude reference="KxI-b8-ebL"/>
                                         <exclude reference="fJm-YC-41Y"/>
                                         <exclude reference="hAE-MM-qRn"/>
                                         <exclude reference="hyH-A8-uXO"/>
-                                        <exclude reference="8tw-hR-HQT"/>
-                                        <exclude reference="QWn-GY-y0n"/>
                                         <exclude reference="GKH-de-ydE"/>
                                         <exclude reference="KE5-eX-UvE"/>
                                         <exclude reference="Agr-di-eqc"/>
@@ -441,8 +458,6 @@
                                         <exclude reference="a2J-ru-q8a"/>
                                         <exclude reference="Hcc-FR-sA0"/>
                                         <exclude reference="MZX-ok-FuZ"/>
-                                        <exclude reference="9Xk-Vb-utP"/>
-                                        <exclude reference="QkV-nX-rJA"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
@@ -451,12 +466,14 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="HOS-5g-vRr"/>
+                                        <include reference="9Xk-Vb-utP"/>
+                                        <include reference="QkV-nX-rJA"/>
+                                        <include reference="8tw-hR-HQT"/>
+                                        <include reference="QWn-GY-y0n"/>
                                         <include reference="KxI-b8-ebL"/>
                                         <include reference="fJm-YC-41Y"/>
                                         <include reference="hAE-MM-qRn"/>
                                         <include reference="hyH-A8-uXO"/>
-                                        <include reference="8tw-hR-HQT"/>
-                                        <include reference="QWn-GY-y0n"/>
                                         <include reference="GKH-de-ydE"/>
                                         <include reference="KE5-eX-UvE"/>
                                         <include reference="Agr-di-eqc"/>
@@ -469,8 +486,6 @@
                                         <include reference="a2J-ru-q8a"/>
                                         <include reference="Hcc-FR-sA0"/>
                                         <include reference="MZX-ok-FuZ"/>
-                                        <include reference="9Xk-Vb-utP"/>
-                                        <include reference="QkV-nX-rJA"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -484,9 +499,11 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.30980392159999998" green="0.1764705882" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="rjU-ZJ-DOX"/>
+                                    <constraint firstAttribute="height" constant="45" id="rjU-ZJ-DOX">
+                                        <variation key="heightClass=regular" constant="49"/>
+                                    </constraint>
                                 </constraints>
-                                <state key="normal" title="Schedule a Rental at Time of Arrival">
+                                <state key="normal" title="Reserve a rental car at time of arrival">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -524,7 +541,7 @@
                             <constraint firstItem="yw3-3C-DNF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="shi-4O-b4y"/>
                             <constraint firstItem="Vdx-pM-Vkh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="skd-DB-nsl"/>
                             <constraint firstItem="2aa-pQ-SCR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="63" id="xWg-HM-wl9">
-                                <variation key="heightClass=regular" constant="240"/>
+                                <variation key="heightClass=regular" constant="200"/>
                             </constraint>
                         </constraints>
                         <variation key="default">
@@ -533,16 +550,16 @@
                                 <exclude reference="Vdx-pM-Vkh"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="bUc-Dj-Gvx"/>
+                                <exclude reference="gkx-tc-bJF"/>
+                                <exclude reference="skd-DB-nsl"/>
+                                <exclude reference="J6h-UO-gDy"/>
+                                <exclude reference="eDA-AT-PPM"/>
+                                <exclude reference="eSo-fL-4F4"/>
                                 <exclude reference="4rU-aJ-ZGx"/>
                                 <exclude reference="4xW-dg-Zy6"/>
                                 <exclude reference="7xB-ey-uF6"/>
                                 <exclude reference="cCh-cK-EdW"/>
-                                <exclude reference="J6h-UO-gDy"/>
-                                <exclude reference="eDA-AT-PPM"/>
-                                <exclude reference="eSo-fL-4F4"/>
-                                <exclude reference="bUc-Dj-Gvx"/>
-                                <exclude reference="gkx-tc-bJF"/>
-                                <exclude reference="skd-DB-nsl"/>
                                 <exclude reference="ahO-3V-olf"/>
                                 <exclude reference="ifY-3d-JJX"/>
                             </mask>
@@ -553,17 +570,17 @@
                                 <include reference="Vdx-pM-Vkh"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="bUc-Dj-Gvx"/>
+                                <include reference="gkx-tc-bJF"/>
+                                <include reference="skd-DB-nsl"/>
+                                <include reference="J6h-UO-gDy"/>
+                                <include reference="eDA-AT-PPM"/>
+                                <include reference="eSo-fL-4F4"/>
                                 <exclude reference="4rU-aJ-ZGx"/>
                                 <include reference="4xW-dg-Zy6"/>
                                 <include reference="7xB-ey-uF6"/>
                                 <exclude reference="LtR-Ra-7zf"/>
                                 <include reference="cCh-cK-EdW"/>
-                                <include reference="J6h-UO-gDy"/>
-                                <include reference="eDA-AT-PPM"/>
-                                <include reference="eSo-fL-4F4"/>
-                                <include reference="bUc-Dj-Gvx"/>
-                                <include reference="gkx-tc-bJF"/>
-                                <include reference="skd-DB-nsl"/>
                                 <include reference="ahO-3V-olf"/>
                                 <exclude reference="ifY-3d-JJX"/>
                             </mask>

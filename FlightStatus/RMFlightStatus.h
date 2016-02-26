@@ -18,9 +18,11 @@
 @property (strong, nonatomic) NSString *departureCity;
 @property (strong, nonatomic) NSString *departurePort;
 @property (strong, nonatomic) NSString *departureGate;
+@property (strong, nonatomic) NSString *departureTerminal;
 @property (strong, nonatomic) NSString *arrivalCity;
 @property (strong, nonatomic) NSString *arrivalPort;
 @property (strong, nonatomic) NSString *arrivalGate;
+@property (strong, nonatomic) NSString *arrivalTerminal;
 @property (strong, nonatomic) NSDate *localScheduledDepartDate;
 @property (strong, nonatomic) NSDate *localScheduledArrivalDate;
 @property (strong, nonatomic) NSDate *localActualDepartDate;
@@ -29,9 +31,11 @@
 @property (strong, nonatomic) NSNumber *flightScheduledDuration;
 @property (strong, nonatomic) NSString *flightStatus;
 @property (assign, nonatomic) CLLocationCoordinate2D currentCoordinates;
+@property (assign, nonatomic) CLLocationCoordinate2D originCoordinates;
+@property (assign, nonatomic) CLLocationCoordinate2D destinationCoordinates;
+
 
 - (id)initWithDictionary:(NSMutableDictionary *)theDictionary;
 - (void)extractFlightTrack:(NSMutableDictionary *)theDictionary;
-
 
 @end

@@ -12,6 +12,7 @@
 
 @interface ViewController () {
     NSTimer *flightTrackerTimer;
+    UISwipeGestureRecognizer *swipeDownGestureRecognizer;
 }
 
 @property (strong, nonatomic) RMFlightStatus *flightStat;
@@ -35,10 +36,12 @@
 }
 
 - (void)getFlightStatus {
-    NSString *modifiedString = [self.flightTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSCharacterSet *alphanumericSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+    
+    NSString *modifiedString =  [[self.flightTF.text componentsSeparatedByCharactersInSet:
+                                  [[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    //NSCharacterSet *alphaSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
     NSCharacterSet *numberSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-    NSString *flightNumber = [modifiedString stringByTrimmingCharactersInSet:alphanumericSet];
+    NSString *flightNumber = [modifiedString stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
     NSString *airline = [modifiedString stringByTrimmingCharactersInSet:numberSet];
     
     [[RMAPIDataController sharedInstance] getFlightArrivalStatusForCarrier:airline flight:flightNumber completionHandler:^(NSMutableDictionary *responseDictionary, NSError *error) {
@@ -55,8 +58,9 @@
         else {
             self.flightStat = [[RMFlightStatus alloc]initWithDictionary:responseDictionary];
             if (self.flightStat != nil) {
-                [self animateObjects];
                 [self populateUIElements];
+                [self createSwipeDownGestureRecognizer];
+                [self animateObjects];
             }
             else {
                 NSLog(@"Unable to retrieve flight status.");
@@ -74,10 +78,39 @@
 
 - (void)getTrackingInformation {
     
-    [[RMAPIDataController sharedInstance] getTrackingInformationForFlight:self.flightStat.flightId completionHandler:^(NSMutableDictionary *responseDictionary, NSError *error) {
-        [self.flightStat extractFlightTrack:responseDictionary];
-        [self plotLocation];
-    }];
+    if (self.flightStat.flightId != nil) {
+        [[RMAPIDataController sharedInstance] getTrackingInformationForFlight:self.flightStat.flightId completionHandler:^(NSMutableDictionary *responseDictionary, NSError *error) {
+            if (error || responseDictionary == nil) {
+                NSLog(@"Error : %@", error);
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
+                                                                message:[error description]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            else {
+                [self.flightStat extractFlightTrack:responseDictionary];
+                [self plotLocation];
+            }
+        }];
+    }
+    else {
+        NSLog(@"Unable to retrieve tracking details.");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
+                                                        message:@"Unable to retrieve flight information."
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch * touch = [touches anyObject];
+    if(touch.phase == UITouchPhaseBegan) {
+        [self.flightTF resignFirstResponder];
+    }
 }
 
 - (void)populateUIElements {
@@ -103,10 +136,8 @@
     self.flightLabel.text = [NSString stringWithFormat:@"(%@) %@ %@", self.flightStat.flightCarrier, self.flightStat.flightCarrierName, self.flightStat.flightNumber];
     self.routeLabel.text = [NSString stringWithFormat:@"(%@) %@ to (%@) %@", self.flightStat.departurePort, self.flightStat.departureCity, self.flightStat.arrivalPort, self.flightStat.arrivalCity];
     
-    
-
-    self.departGateLabel.text = self.flightStat.departureGate;
-    self.arrivalGateLabel.text = self.flightStat.arrivalGate;
+    self.departGateLabel.text = [NSString stringWithFormat:@"Gate %@ (Terminal %@)", self.flightStat.departureGate, self.flightStat.departureTerminal];
+    self.arrivalGateLabel.text = [NSString stringWithFormat:@"Gate %@ (Terminal %@)", self.flightStat.arrivalGate, self.flightStat.arrivalTerminal];
     if ([self.flightStat.flightStatus isEqualToString:@"Landed"] ||
         [self.flightStat.flightStatus isEqualToString:@"In Flight"]) {
         self.departDateLabel.text = [df stringFromDate:self.flightStat.localActualDepartDate];
@@ -142,17 +173,39 @@
 
 - (void)plotLocation {
     [self.mapView removeAnnotations:[self.mapView annotations]];
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+    region.span.longitudeDelta = 0.30f;
+    region.span.latitudeDelta = 0.30f;
+
     
-    if (self.flightStat.currentCoordinates.latitude != 0 && self.flightStat.currentCoordinates.longitude != 0) {
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-        annotation.coordinate = self.flightStat.currentCoordinates;
-        
-        MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
-        region.center = self.flightStat.currentCoordinates;
-        region.span.longitudeDelta = 0.30f;
-        region.span.latitudeDelta = 0.30f;
+    if ([self.flightStat.flightStatus isEqualToString:@"Landed"]) {
+        if (CLLocationCoordinate2DIsValid(self.flightStat.destinationCoordinates)) {
+            annotation.coordinate = self.flightStat.destinationCoordinates;
+            region.center = self.flightStat.destinationCoordinates;
+            [self.mapView setRegion:region animated:YES];
+            [self.mapView addAnnotation:annotation];
+        }
+    }
+    else if ([self.flightStat.flightStatus isEqualToString:@"On Schedule"]){
+        if (CLLocationCoordinate2DIsValid(self.flightStat.originCoordinates)) {
+            annotation.coordinate = self.flightStat.originCoordinates;
+            region.center = self.flightStat.originCoordinates;
+            [self.mapView setRegion:region animated:YES];
+            [self.mapView addAnnotation:annotation];
+        }
+    }
+    else if ([self.flightStat.flightStatus isEqualToString:@"In Flight"]) {
+        if (CLLocationCoordinate2DIsValid(self.flightStat.currentCoordinates)) {
+            annotation.coordinate = self.flightStat.currentCoordinates;
+            region.center = self.flightStat.currentCoordinates;
+            [self.mapView setRegion:region animated:YES];
+            [self.mapView addAnnotation:annotation];
+        }
+    }
+    else {
+        region = MKCoordinateRegionMake(self.mapView.centerCoordinate, MKCoordinateSpanMake(180, 360));
         [self.mapView setRegion:region animated:YES];
-        [self.mapView addAnnotation:annotation];
     }
 }
 
@@ -179,7 +232,6 @@
                                               self.actionButton2.alpha = 1.0;
                                           }
                                           completion:^(BOOL finished){
-                                              NSLog(@"Done2!");
                                               
                                           }];
                      }];
@@ -187,7 +239,6 @@
 
 - (void)animateMiddleView
 {
-    self.statusView.alpha  = 0.0;
     self.flightLabel.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width * -1, 0);
     self.routeLabel.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width * -1, 0);
     self.header1Label.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width * -1, 0);
@@ -196,23 +247,23 @@
     self.departGateLabel.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.size.height * 1);
     self.arrivalDateLabel.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.size.height * 1);
     self.arrivalGateLabel.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.size.height * 1);
+    self.statusView.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width * 1, 0);
     
     [UIView animateWithDuration:0.80 delay:0.07 usingSpringWithDamping:.70 initialSpringVelocity:.8 options:0 animations:^{
         self.flightLabel.transform = CGAffineTransformIdentity;
         self.header1Label.transform = CGAffineTransformIdentity;
         self.header2Label.transform = CGAffineTransformIdentity;
     }completion:^(BOOL finished) {
-        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:.85 initialSpringVelocity:.8 options:0 animations:^{
+        [UIView animateWithDuration:0.80 delay:0.0 usingSpringWithDamping:.85 initialSpringVelocity:.8 options:0 animations:^{
             self.routeLabel.transform = CGAffineTransformIdentity;
             self.departDateLabel.transform = CGAffineTransformIdentity;
             self.departGateLabel.transform = CGAffineTransformIdentity;
             self.arrivalDateLabel.transform = CGAffineTransformIdentity;
             self.arrivalGateLabel.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:1.0 delay:0.0 options: UIViewAnimationOptionCurveEaseInOut animations:^{
-                                 self.statusView.alpha = 0.0;
+            [UIView animateWithDuration:0.3 delay:0.0 options: UIViewAnimationOptionCurveEaseInOut animations:^{
+                                 self.statusView.transform = CGAffineTransformIdentity;
             } completion:^(BOOL finished) {
-                                 self.statusView.alpha = 1.0;
 
             }];
         }];
@@ -220,7 +271,7 @@
 }
 
 - (void)resetAnimation {
-    self.topViewTopConstraint.constant = 252;
+    self.topViewTopConstraint.constant = 200;
     self.middleViewTopConstraint.constant = 184;
     [UIView animateWithDuration:0.5
                           delay:0.0
@@ -229,8 +280,31 @@
                          [self.view layoutIfNeeded];
                      }
                      completion:^(BOOL finished){
-                         NSLog(@"Done!");
     }];
+}
+
+- (void)shiftTopView {
+    self.topViewTopConstraint.constant = 100;
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished){
+                     }];
+}
+
+- (void)unshiftTopView {
+    self.topViewTopConstraint.constant = 200;
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished){
+                     }];
 }
 
 #pragma mark - Map Delegate
@@ -306,25 +380,27 @@
     
     if ([self.flightStat.flightDuration isKindOfClass:[NSNull class]]) {
         minutes = [self.flightStat.flightScheduledDuration integerValue]%60;
-        hours = ([self.flightStat.flightScheduledDuration integerValue] - minutes)/60;
+        hours = (int)([self.flightStat.flightScheduledDuration integerValue] - minutes)/60;
         returnString = [NSString stringWithFormat:@"Scheduled for %d hours %d minutes", hours, minutes];
     }
     else {
         // On completion of flight only
         minutes = [self.flightStat.flightDuration integerValue]%60;
-        hours = ([self.flightStat.flightDuration integerValue] - minutes)/60;
+        hours = (int)([self.flightStat.flightDuration integerValue] - minutes)/60;
         returnString = [NSString stringWithFormat:@"Duration %d hours %d minutes", hours, minutes];
     }
     
-    NSTimeInterval diff = [[NSDate date] timeIntervalSinceDate:self.flightStat.localActualDepartDate];
-    
-    double mins = diff/60;
-    int timeleft = [self.flightStat.flightScheduledDuration intValue] - mins;
+//    NSTimeInterval diff = [[NSDate date] timeIntervalSinceDate:self.flightStat.localActualDepartDate];
+//    double mins = diff/60;
+//    int timeleft = [self.flightStat.flightScheduledDuration intValue] - mins;
     
     return returnString;
 }
 
 - (void)reset {
+    if (flightTrackerTimer) {
+        [self killTimer];
+    }
     self.flightTF.text = nil;
     self.flightStat = nil;
     self.middleView.hidden = YES;
@@ -332,15 +408,40 @@
     self.actionButton2.alpha = 0.0;
     self.header1Label.text = @"Departs";
     self.header2Label.text = @"Arrives";
+}
 
-    if (self.topViewTopConstraint.constant == 64) {
-        [self resetAnimation];
-    }
+#pragma mark - Gesture Methods
+- (void)createSwipeDownGestureRecognizer {
+    swipeDownGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeDownFrom:)];
+    swipeDownGestureRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:swipeDownGestureRecognizer];
+}
+
+- (void)removeSwipeDownGestureRecognizer {
+    [self.view removeGestureRecognizer:swipeDownGestureRecognizer];
+}
+
+- (void)handleSwipeDownFrom:(UIGestureRecognizer*)recognizer {
+    [self resetAnimation];
+    [self reset];
 }
 
 #pragma mark - UITextField Delegates
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     [self validateTextFields];
+    return YES;
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self shiftTopView];
+    return YES;
+}
+
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [self unshiftTopView];
+    [self.view endEditing:YES];
+    
     return YES;
 }
 
