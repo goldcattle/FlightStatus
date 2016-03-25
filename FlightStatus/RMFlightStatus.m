@@ -150,6 +150,9 @@
         NSString *longitude = [currentLocationDict objectForKey:@"lon"];
         self.currentCoordinates = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
     }
+    else {
+        self.currentCoordinates = kCLLocationCoordinate2DInvalid;
+    }
 }
 
 

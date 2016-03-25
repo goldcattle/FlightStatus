@@ -25,7 +25,7 @@
     [super viewDidLoad];
     [self reset];
     
-    UIImage *image = [UIImage imageNamed:@"skurtLogo"];
+    UIImage *image = [UIImage imageNamed:@""];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self.navigationController.navigationBar.topItem setTitleView:imageView];
 
@@ -152,7 +152,7 @@
         self.header2Label.text = @"Arrived";
     }
     
-    if ([self.flightStat.flightStatus isEqualToString:@"On Schedule"] ||
+    if ([self.flightStat.flightStatus isEqualToString:@"Scheduled"] ||
         [self.flightStat.flightStatus isEqualToString:@"Landed"] ||
         [self.flightStat.flightStatus isEqualToString:@"In Flight"]) {
         [self.statusView setBackgroundColor:[UIColor colorWithRed:22/255.0 green:200/255.0 blue:0/255.0 alpha:1.0]];
@@ -185,13 +185,21 @@
             [self.mapView setRegion:region animated:YES];
             [self.mapView addAnnotation:annotation];
         }
+        else {
+            region = MKCoordinateRegionMake(self.mapView.centerCoordinate, MKCoordinateSpanMake(180, 360));
+            [self.mapView setRegion:region animated:YES];
+        }
     }
-    else if ([self.flightStat.flightStatus isEqualToString:@"On Schedule"]){
+    else if ([self.flightStat.flightStatus isEqualToString:@"Scheduled"]){
         if (CLLocationCoordinate2DIsValid(self.flightStat.originCoordinates)) {
             annotation.coordinate = self.flightStat.originCoordinates;
             region.center = self.flightStat.originCoordinates;
             [self.mapView setRegion:region animated:YES];
             [self.mapView addAnnotation:annotation];
+        }
+        else {
+            region = MKCoordinateRegionMake(self.mapView.centerCoordinate, MKCoordinateSpanMake(180, 360));
+            [self.mapView setRegion:region animated:YES];
         }
     }
     else if ([self.flightStat.flightStatus isEqualToString:@"In Flight"]) {
@@ -200,6 +208,10 @@
             region.center = self.flightStat.currentCoordinates;
             [self.mapView setRegion:region animated:YES];
             [self.mapView addAnnotation:annotation];
+        }
+        else {
+            region = MKCoordinateRegionMake(self.mapView.centerCoordinate, MKCoordinateSpanMake(180, 360));
+            [self.mapView setRegion:region animated:YES];
         }
     }
     else {
