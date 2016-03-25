@@ -9,8 +9,8 @@
 #import "RMFlightStatsAPIGateway.h"
 
 #define kURLString @"https://api.flightstats.com/flex/flightstatus/rest"
-#define kAppID @"91b929e6"
-#define kAppKey @"2eebba75c50ce13c31b9ef0b331fb93a"
+#define kAppID @"a17490f6"
+#define kAppKey @"5b6abc5506b3e7af1845a19443c16bbb"
 
 @implementation RMFlightStatsAPIGateway
 
